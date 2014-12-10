@@ -36,12 +36,18 @@ def main_to_html(text):
             year = i[0]
         else:
             date, title, author, page = i[0], i[1], i[2], i[3]
+            if len(page) == 1:
+                ppage = '00' + page
+            elif len(page) == 2:
+                ppage = '0' + page
+            elif len(page) == 3:
+                ppage = page
             output += '''<tr>
             <td class='date'>{0}/{1}</td>
-            <td class='title'><a href="./p{4}">{2}</a></td>
+            <td class='title'><a href="./p{5}.html">{2}</a></td>
             <td class='author'>{3}</td>
             <td class='page'>{4}p</td>
-            </tr>'''.format(year, date, title, author, page)
+            </tr>'''.format(year, date, title, author, page, ppage)
 
     output += '</table>'
     return output
@@ -54,23 +60,30 @@ def text_to_html(text):
         else:
             title_page = l.replace(' ','').split(',')
             title, page = title_page[0], title_page[1]
+            if len(page) == 1:
+                ppage = '00' + page
+            elif len(page) == 2:
+                ppage = '0' + page
+            elif len(page) == 3:
+                ppage = page
             output += '''<tr>
-            <td><a href="./p{1}">{0}</a></td>
+            <td><a href="./p{2}.html">{0}</a></td>
             <td>{1}p</td>
             </tr>
-            '''.format(title, page)
+            '''.format(title, page, ppage)
     output += '</table>'
     return output
 
 if __name__ == '__main__':
     data = extract()
     output = '''
+    <!DOCTYPE html>
     <html lang='ja'>
     <head>
     <meta charset='UTF-8'>
     </head>
     <body>
-    <h1>目次<h1>
+    <h1>目次</h1>
     '''
     output += text_to_html(data[0])
     output += main_to_html(data[1])
