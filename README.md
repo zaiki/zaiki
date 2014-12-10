@@ -8,3 +8,10 @@
 * 打ち込み者による注釈やコメントはHTMLにおけるコメントタグを使う。
 * ファイル名は「p（ページ数）\_（タイトル）.（拡張子）」に統一する。例えば「p579\_編集後記.md」
 
+## HTMLへの変換
+[pandoc](http://johnmacfarlane.net/pandoc/)を使おう！
+
+```
+pandoc example.md -o example.html
+pandoc -s example.md -o example.html
+```
