@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import re
+import re, os, sys
 
-def extract():
-    with open('index.txt','r') as f:
+def extract(filename):
+    with open( filename, 'r' ) as f:
         strm = f.read()
         m = re.search('# BEGIN index(.+)# BEGIN main(.+)# END main.+付録(.+)# END index', strm, re.DOTALL)
         return m.groups()
@@ -75,7 +75,13 @@ def text_to_html(text):
     return output
 
 if __name__ == '__main__':
-    data = extract()
+    scriptsdir = os.path.dirname(sys.argv[0])
+    rootdir = scriptsdir + '/..'
+    srcdir = rootdir + '/src'
+    
+    filename = os.path.join( srcdir, 'p006_目次.txt' )
+    data = extract(filename)
+    
     output = '''
     <!DOCTYPE html>
     <html lang='ja'>
@@ -91,3 +97,4 @@ if __name__ == '__main__':
     output += text_to_html(data[2])
     output += '</body></html>'
     print(output)
+    
