@@ -1,5 +1,14 @@
 #/bin/bash
-for md in $(ls | grep '.*\.md')
+SCRIPTS=$(dirname $0)
+ROOT=$SCRIPTS/..
+SRC=$ROOT/src
+HTML=$ROOT/html
+
+if [ ! -d $HTML ]; then
+    mkdir $HTML
+fi
+
+for md in $(ls $SRC | grep '.*\.md')
 do
-    pandoc $md -o html/$(echo $md | sed -e 's/\(.*\)\.md/\1/').html
+    pandoc $SRC/$md -o $HTML/$(echo $md | sed -e 's/\(.*\)\.md/\1/').html
 done
