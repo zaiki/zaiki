@@ -86,6 +86,7 @@ if __name__ == '__main__':
     <!DOCTYPE html>
     <html lang='ja'>
     <head>
+    <link rel="stylesheet" type="text/css" href="./style_index.css">
     <meta charset='UTF-8'>
     </head>
     <body>

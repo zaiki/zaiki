@@ -12,5 +12,8 @@ $SCRIPTS/get_index.py > $HTML/index.html
 
 for md in $(ls $SRC | grep '.*\.md')
 do
-    pandoc $SRC/$md -o $HTML/$(echo $md | sed -e 's/\(p[0-9]\{3\}\)_.*\.md/\1/').html
+    pandoc -s -c $SCRIPTS/style.css $SRC/$md -o $HTML/$(echo $md | sed -e 's/\(p[0-9]\{3\}\)_.*\.md/\1/').html
 done
+
+cp $SCRIPTS/style.css $HTML/
+cp $SCRIPTS/style_index.css $HTML/
