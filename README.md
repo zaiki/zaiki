@@ -15,3 +15,19 @@
 pandoc example.md -o example.html
 pandoc -s example.md -o example.html
 ```
+
+[rake](https://github.com/ruby/rake)をインストールしてください。
+```
+gem install bundler
+bundle install
+```
+あるいは
+```
+gem install rake
+```
+
+以下のコマンドでhtmlが生成されます。
+```
+rake configure
+rake 
+```
