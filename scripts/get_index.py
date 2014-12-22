@@ -90,11 +90,12 @@ if __name__ == '__main__':
     <meta charset='UTF-8'>
     </head>
     <body>
-    <h1>目次</h1>
+    <h1>吉田寮資料集「在寮期限」の到来からその終結へ<br/>1985-90</h1>
+    <h2>目次</h2>
     '''
     output += text_to_html(data[0])
     output += main_to_html(data[1])
-    output += '<h2>付録</h2>\n'
+    output += '<h3>付録</h3>\n'
     output += text_to_html(data[2])
     output += '</body></html>'
     print(output)

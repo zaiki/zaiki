@@ -4,31 +4,21 @@ source_files = Rake::FileList["src/*.md"]
 
 task :default => [ "html", "html/index.html", :css, :main]
 
-task :configure do
-    print "checking for pandoc... "
-    if system("test -x $(which pandoc)") then
-        puts "yes"
-    else
-        puts "no"
-        puts "See http://johnmacfarlane.net/pandoc/installing.html"
-    end
-end
-
 file "html" do
     sh "mkdir html"
 end
 CLEAN.include("html")
 
-file "html/index.html" do
+file "html/index.html" => "src/p006_目次.txt" do
     sh "scripts/get_index.py > html/index.html"
 end
 
 task :css => ["html/style.css", "html/style_index.css"]
-file "html/style.css" do
-    sh "cp scripts/style.css html/"
+file "html/style.css" => "src/style.css" do
+    sh "cp src/style.css html/"
 end
-file "html/style_index.css" do
-    sh "cp scripts/style_index.css html/"
+file "html/style_index.css" => "src/style_index.css" do
+    sh "cp src/style_index.css html/"
 end
 
 source_files.each do |sf|
@@ -39,8 +29,3 @@ source_files.each do |sf|
         sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
     end
 end
-    
-#rule %r{html/.*\.html} => "src/%n.md" do |t|
-#    filename = File.basename( t.name, '.html' )
-#    sh "pandoc -s src/#{filename}.md -o html/$(echo #{filename} | sed -e 's/_.*//').html"
-#end

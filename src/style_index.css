@@ -1,8 +1,4 @@
-header h1{ text-align:center; }
-header h2.subtitle{ text-align:center; }
-header h2.slogan{ text-align:left; }
-header h2.author{ text-align:right; }
-header p{ text-align:right; }
+h1{text-align: center;}
 
 html { background:#fefefe; font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
