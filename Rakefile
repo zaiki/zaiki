@@ -1,4 +1,6 @@
 require 'rake/clean'
+CLEAN.include("html/*.html")
+CLEAN.include("html/*.css")
 
 source_files = Rake::FileList["src/*.md"]
 
@@ -7,10 +9,9 @@ task :default => [ "html", "html/index.html", :css, :main]
 file "html" do
     sh "mkdir html"
 end
-CLEAN.include("html")
 
 file "html/index.html" => "src/p006_目次.txt" do
-    sh "scripts/get_index.py > html/index.html"
+    sh "src/get_index.rb > html/index.html"
 end
 
 task :css => ["html/style.css", "html/style_index.css"]
@@ -23,8 +24,7 @@ end
 
 source_files.each do |sf|
     tf = sf.sub(%r{src/(p\d\d\d)_.*},'html/\1.html')
-    task :main => tf do
-    end
+    task :main => tf
     file tf => sf do
         sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
     end
