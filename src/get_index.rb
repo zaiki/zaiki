@@ -13,9 +13,9 @@ end
 
 def text_to_html text
     output = "<table>\n"
-    text = text.gsub(/^\s*$\n/, '')
+    text = text.gsub(/^[ ]*$\n/, '')
     text.each_line do |l|
-        /(.+),(.+)/ =~ l.gsub(/\s/,'')
+        /(.+),(.+)/ =~ l.gsub(/ /,'')
         title, page = $1, $2
         ppage = padding_page page
         output <<
@@ -39,10 +39,10 @@ def main_to_html main
     <th>ページ数</th>
     </tr>
 EOF
-    main = main.gsub(/^\s*$\n/,'')
+    main = main.gsub(/^[ ]*$\n/,'')
     year = '1990'
     main.each_line do |l|
-        contents = l.gsub(/\s/,'').split(',')
+        contents = l.gsub(/[ \n]/,'').split(',')
         case contents.length
         when 1
             year = contents[0]
@@ -82,4 +82,4 @@ EOF
 output << text_to_html($1) << main_to_html($2) 
 output << "<h3>付録</h3>\n" << text_to_html($3) 
 output << "</body></html>"
-puts output
+puts output.sub(/p006\.html/,'index.html')

@@ -4,7 +4,7 @@ CLEAN.include("html/*.css")
 
 source_files = Rake::FileList["src/*.md"]
 
-task :default => [ "html", "html/index.html", :css, :main]
+task :default => [ "html", "html/index.html", "html/p557.html", :css, :main]
 
 file "html" do
     sh "mkdir html"
@@ -14,12 +14,18 @@ file "html/index.html" => "src/p006_目次.txt" do
     sh "src/get_index.rb > html/index.html"
 end
 
-task :css => ["html/style.css", "html/style_index.css"]
-file "html/style.css" => "src/style.css" do
-    sh "cp src/style.css html/"
+file "html/p557.html" => "src/p557_年表.txt" do
+    sh "src/get_chrono.rb > html/p557.html"
 end
-file "html/style_index.css" => "src/style_index.css" do
-    sh "cp src/style_index.css html/"
+
+csslist = %w[style.css style_index.css style_chrono.css]
+csslist.each do |css|
+    htmlcss = File.join("html",css)
+    srccss = File.join("src",css)
+    task :css => htmlcss
+    file htmlcss => srccss do
+        sh "cp #{srccss} #{htmlcss}"
+    end
 end
 
 source_files.each do |sf|
