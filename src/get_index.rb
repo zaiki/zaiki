@@ -18,7 +18,13 @@ def text_to_html text
         /(.+),(.+)/ =~ l.gsub(/\s/,'')
         title, page = $1, $2
         ppage = padding_page page
-        output << "<tr><td><a href=\"./p#{ppage}.html\">#{title}</a></td><td>#{page}p</td></tr>"
+        output <<
+        <<"EOF"
+<tr>
+    <td><a href=\"./p#{ppage}.html\">#{title}</a></td>
+    <td>#{page}p</td>
+</tr>
+EOF
     end
     output << "</table>\n"
 end
