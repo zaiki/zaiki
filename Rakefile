@@ -29,7 +29,7 @@ csslist.each do |css|
 end
 
 source_files.each do |sf|
-    tf = sf.sub(%r{src/(p\d\d\d)_.*},'html/\1.html')
+    tf = sf.sub(/src\/(p\d{3})_.*/,'html/\1.html')
     task :main => tf
     file tf => sf do
         sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
