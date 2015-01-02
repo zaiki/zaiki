@@ -3,7 +3,6 @@
 html/*.css
 
 ### for ruby ###
-Gemfile.lock
 *.gem
 *.rbc
 /.config
