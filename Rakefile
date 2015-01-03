@@ -2,13 +2,12 @@ require 'rake/clean'
 CLEAN.include("html/*.html")
 CLEAN.include("html/*.css")
 
-source_files = Rake::FileList["src/*.md"]
+markdown_files = FileList["src/*.md"]
+css_files = FileList["src/*.css"]
 
 task :default => [ "html", "html/index.html", "html/p557.html", :css, :main]
 
-file "html" do
-    sh "mkdir html"
-end
+directory "html"
 
 file "html/index.html" => "src/p006_目次.txt" do
     sh "src/get_index.rb > html/index.html"
@@ -18,20 +17,22 @@ file "html/p557.html" => "src/p557_年表.txt" do
     sh "src/get_chrono.rb > html/p557.html"
 end
 
-csslist = %w[style.css style_index.css style_chrono.css]
-csslist.each do |css|
-    htmlcss = File.join("html",css)
-    srccss = File.join("src",css)
-    task :css => htmlcss
-    file htmlcss => srccss do
-        sh "cp #{srccss} #{htmlcss}"
+css_files.each do |src_css|
+    if %r'src/(style.*\.css)' =~ src_css
+        html_css = "html/#{$1}"
+        task :css => html_css
+        file html_css => src_css do |t|
+            cp t.prerequisites, 'html'
+        end
     end
 end
 
-source_files.each do |sf|
-    tf = sf.sub(/src\/(p\d{3})_.*/,'html/\1.html')
-    task :main => tf
-    file tf => sf do
-        sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
+markdown_files.each do |sf|
+    if %r'src/(p\d{3})_.*\.md' =~ sf
+        tf = "html/#{$1}.html"
+        task :main => tf
+        file tf => sf do
+            sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
+        end
     end
 end
