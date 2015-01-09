@@ -5,15 +5,15 @@ CLEAN.include("html/*.css")
 markdown_files = FileList["src/*.md"]
 css_files = FileList["src/*.css"]
 
-task :default => [ "html", "html/index.html", "html/p557.html", :css, :main]
+task :default => [ "html", "html/index.html", "html/p557.html", :css, :main ]
 
 directory "html"
 
-file "html/index.html" => "src/p006_目次.txt" do
+file "html/index.html" => [ "src/p006_目次.txt", "src/get_index.rb" ] do
     sh "src/get_index.rb > html/index.html"
 end
 
-file "html/p557.html" => "src/p557_年表.txt" do
+file "html/p557.html" => [ "src/p557_年表.txt", "src/get_chrono.rb" ] do
     sh "src/get_chrono.rb > html/p557.html"
 end
 

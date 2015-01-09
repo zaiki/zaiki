@@ -37,8 +37,8 @@ str.each_line do |l|
     elsif /^＊/ =~ l
         output = output.gsub(/<p class="remark"><\/p>/,"<p class=\"remark\">#{l}<\/p>")
     elsif /^\d{4}年$/ =~ l 
-        output << flash(buffer) << "<tr><td colspan=\"2\" class=\"year\">#{l.strip}</td></tr>\n"
-    elsif /^(\d{1,2}日,|\d{1,2}月\d{1,2}日,|\d{1,2}月,)/ =~ l
+        output << flash(buffer) << "<tr id=\"#{l.strip.sub(/年/,'')}\"><td colspan=\"2\" class=\"year\">#{l.strip}</td></tr>\n"
+    elsif /^(\d{1,2}日,|\d{1,2}月\d{1,2}日,|\d{1,2}月[^,]*,)/ =~ l
         output << flash(buffer)
         buffer[:date], buffer[:contents] = l.split(',')
     else
