@@ -46,4 +46,10 @@ str.each_line do |l|
     end
 end
 
+output << flash(buffer) << <<"EOF"
+</table>
+</body>
+</html>
+EOF
+
 puts output
