@@ -28,6 +28,5 @@ gem install rake
 
 以下のコマンドでhtmlが生成されます。
 ```
-rake configure
 rake 
 ```

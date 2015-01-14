@@ -33,7 +33,7 @@ EOF
 end
 
 str.each_line do |l|
-    if /^年表/ =~ l
+    if /^(年表|#)/ =~ l
     elsif /^＊/ =~ l
         output = output.gsub(/<p class="remark"><\/p>/,"<p class=\"remark\">#{l}<\/p>")
     elsif /^\d{4}年$/ =~ l 
@@ -42,7 +42,7 @@ str.each_line do |l|
         output << flash(buffer)
         buffer[:date], buffer[:contents] = l.split(',')
     else
-        buffer[:contents] << l << "<br/>"
+        buffer[:contents] << "<br/>" << l
     end
 end
 
