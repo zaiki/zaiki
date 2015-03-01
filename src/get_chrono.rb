@@ -48,6 +48,9 @@ end
 
 output << flash(buffer) << <<"EOF"
 </table>
+<footer>
+最終更新日時：#{require 'Time'; Time.now}
+</footer>
 </body>
 </html>
 EOF

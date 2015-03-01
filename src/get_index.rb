@@ -81,5 +81,11 @@ EOF
 
 output << text_to_html($1) << main_to_html($2) 
 output << "<h3>付録</h3>\n" << text_to_html($3) 
-output << "</body></html>"
+output << <<EOF
+<footer>
+最終更新日時：#{require 'Time'; Time.now}
+</footer>
+</body>
+</html>
+EOF
 puts output.sub(/p006\.html/,'index.html')

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'rake/clean'
 CLEAN.include("html/*.html")
 CLEAN.include("html/*.css")
@@ -32,7 +34,11 @@ markdown_files.each do |sf|
         tf = "html/#{$1}.html"
         task :main => tf
         file tf => sf do
-            sh "pandoc -s -c ./style.css #{sf} -o #{tf}"
+            File.open('footer.html','w') do |f|
+              f.write("<hr><footer>最終更新日：#{require 'Time'; Time.now}</footer>")
+            end
+            sh "pandoc -s -c ./style.css -A footer.html #{sf} -o #{tf}"
+            rm "footer.html"
         end
     end
 end

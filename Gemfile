@@ -1,5 +1,5 @@
-# A sample Gemfile
+# coding: utf-8
+
 source "https://rubygems.org"
 
-# gem "rails"
 gem "rake"
